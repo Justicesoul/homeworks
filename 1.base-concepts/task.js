@@ -13,19 +13,30 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalToPay = amount - contribution;
-  let dateNow = new Date();
-  let year1 = date.getFullYear();
-  let year2 = dateNow.getFullYear();
-  let fullYearsInMonth = (year1 - year2 - 1) * 12;
-  let month1 = date.getMonth();
-  let month2 = dateNow.getMonth();
-  let mounthLeft = 11 - month1 + (month2 + 1);
-  let totalMonth = fullYearsInMonth + mounthLeft;
-  let newPercent = (1 / 12) * (percent / 100);
-  let totalAmount =
-    totalToPay *
-    ((newPercent + newPercent) / Math.pow(1 + newPercent, totalMonth) - 1);
-  console.log(totalAmount.toFixed(2));
-  return totalAmount.toFixed(2);
+  if (typeof percent !== "number") {
+    return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
+  } else if (typeof contribution !== "number") {
+    return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
+  } else if (typeof amount !== "number") {
+    return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
+  } else {
+    let totalToPay = amount - contribution;
+    let dateNow = new Date();
+    let year1 = date.getFullYear();
+    let year2 = dateNow.getFullYear();
+    let fullYearsInMonth = (year1 - year2 - 1) * 12;
+    let month1 = date.getMonth();
+    let month2 = dateNow.getMonth();
+    let monthLeft = 12 - month1 + month2;
+    let totalMonth = fullYearsInMonth + monthLeft;
+    let newPercent = percent / 12 / 100;
+    let totalAmount =
+      totalToPay *
+      (newPercent + newPercent / (Math.pow(1 + newPercent, totalMonth) - 1)) *
+      totalMonth;
+    let result = Math.round(totalAmount * 100) / 100;
+
+    console.log(result);
+    return result;
+  }
 }
