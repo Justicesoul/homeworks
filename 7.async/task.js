@@ -19,7 +19,7 @@ class AlarmClock {
     this.alarmCollection = this.alarmCollection.filter(
       (element) => element.id != id
     );
-    return index === this.alarmCollection.length;
+    return !(index === this.alarmCollection.length);
   }
 
   getCurrentFormattedTime() {
