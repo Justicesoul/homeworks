@@ -51,3 +51,5 @@ function debounceDecorator2(func) {
   wrapper.count = 0;
   return wrapper;
 }
+
+// https://stackblitz.com/edit/js-pcury5?file=index.js

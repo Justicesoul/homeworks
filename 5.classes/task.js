@@ -127,3 +127,64 @@ library.findBookBy('name', 'Властелин колец');
 library.findBookBy('author', 1919);
 
 // Задача №3
+
+class Student {
+  constructor(name, gender, age) {
+    this.name = name;
+    this.gender = gender;
+    this.age = age;
+  }
+
+  addMark(mark, subjectName) {
+    if (this.marks === undefined) {
+      this.marks = {};
+    }
+    if (this.marks[subjectName] === undefined) {
+      this.marks[subjectName] = new Array();
+    }
+    if (mark < 1 || mark > 5) {
+      return `Вы пытались поставить оценку ${grade} по предмету ${subject}. Допускаются только числа от 1 до 5.`;
+    } else {
+      this.marks[subjectName].push(mark);
+    }
+  }
+
+  getAverageBySubject(subjectName) {
+    let sum = 0;
+    let newArr = this.marks[subjectName];
+
+    for (let i = 0; i < newArr.length; i++) {
+      sum += +newArr[i];
+    }
+    return sum / newArr.length;
+  }
+
+  getAverage() {
+    let allMarks = [];
+    for (let key in this.marks) {
+      let arr = this.marks[key];
+      allMarks.push(...arr);
+    }
+    let sum = 0;
+    for (let i = 0; i < allMarks.length; i++) {
+      sum += +allMarks[i];
+    }
+    return sum / allMarks.length;
+  }
+
+  exclude(reason) {
+    delete this.subject;
+    delete this.marks;
+    this.excluded = reason;
+  }
+}
+let Ivan = new Student('Ivan', 'men', 34);
+let Anna = new Student('Anna', 'women', 29);
+let Losash = new Student('Losash', 'men', 2);
+
+Ivan.addMark(3, 'algebra');
+Ivan.addMark(5, 'algebra');
+Ivan.addMark(5, 'history');
+Ivan.addMark(5, 'history');
+console.log(Ivan.getAverageBySubject('algebra'));
+console.log(Ivan.getAverage());
